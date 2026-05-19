@@ -1,0 +1,21 @@
+{% extends 'weatherapp/base.html' %} 
+
+{% block content %} 
+{% load crispy_forms_tags %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 bg-dark p-4 rounded-4 shadow border border-secondary">
+            
+            <h3 class="custom-heading-full mb-4">Please Login</h3>
+            
+            <form method="post" class="text-white">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <button type="submit" class="btn btn-danger w-100 mt-3">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

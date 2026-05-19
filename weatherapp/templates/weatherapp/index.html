@@ -1,0 +1,100 @@
+{% extends 'weatherapp/base.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+    
+<div class="container py-2">
+    <div class="text-center mt-3">
+        <h1 class="custom-heading mb-4">Weather App</h1>
+    </div>
+
+    <div class="messages">
+        {% if messages %}
+            {% for message in messages %}
+            <p class="message text-center alert alert-{{ message.tags }}">
+                {% if message.level == messages.ERROR %}Important: {% endif %}
+                {{ message }}
+            </p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <input type="text" class="form-control bg-warning text-white border-secondary" placeholder="Şehir adı giriniz (Örn: Istanbul, London).." aria-label="Recipient's username" aria-describedby="button-addon2" name="name">
+            <button class="btn btn-outline-secondary bg-info text-white" type="submit" id="button-addon2">Add City</button>
+        </div>
+    </form>
+    
+</div>
+<div class="container py-2 ">
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+
+        {% if user.is_superuser %}
+            {% for i in city_data %}
+                <div class="col-sm-4 ">
+                    <div class="card text-center rounded-4 custom-card shadow">                      
+                        <div class="card-body p-4">
+                            <h4 class="card-title">{{i.city}}</h4>
+                            <h2 class="display-5 fw-bold text-primary">{{i.temp|floatformat:0}}&#8451;</h2>
+                            <img src="http://openweathermap.org/img/wn/{{i.icon}}@2x.png" alt="weather-icon">
+                            <p class="text-muted text-capitalize">{{i.desc}}</p>
+                            
+                            <hr>
+                            <small class="text-muted d-block mb-3">Kullanıcılar: 
+                            {% for user in i.city.user.all %}
+                                {{ user.username }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                            </small>
+                            <a href="{% url 'weatherapp:delete' i.city.id %}" class="btn btn-danger btn-sm text-white w-100">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center mt-5">
+                    <h4 class="text-white">Sistemde henüz kayıtlı şehir yok.</h4>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for i in city_data %}
+                <div class="col-sm-4 ">
+                    <div class="card text-center rounded-4 custom-card shadow">                      
+                        <div class="card-body p-4">
+                            <h4 class="card-title">{{i.city}}</h4>
+                            <h2 class="display-5 fw-bold text-primary">{{i.temp|floatformat:0}}&#8451;</h2>
+                            <img src="http://openweathermap.org/img/wn/{{i.icon}}@2x.png" alt="weather-icon">
+                            <p class="text-muted text-capitalize">{{i.desc}}</p>
+                            
+                            <a href="{% url 'weatherapp:delete' i.city.id %}" class="btn btn-danger btn-sm text-white w-100 mt-2">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center mt-5 p-5 bg-dark rounded-4 custom-card border border-secondary">
+                    <h4 class="text-white">Henüz hiç şehir eklemediniz.</h4>
+                    <p class="text-white-50">Hava durumunu öğrenmek için yukarıdaki arama kutusuna bir şehir adı yazın!</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+</div>
+
+{% else %}
+
+<div class="container">
+    <div class="row justify-content-center m-5">
+        <div class="col-md-6 text-center bg-dark p-5 rounded-4 shadow border border-secondary">
+            <h2 class="text-white mb-4">Welcome <span class="text-danger">Guest!</span></h2>
+            <p class="text-white-50 mb-4">Uygulamayı kullanmak ve kendi hava durumu listenizi oluşturmak için lütfen giriş yapın.</p>
+            <a href="{% url 'users:login' %}" class="btn btn-primary me-2">Login</a>
+            <a href="{% url 'users:register' %}" class="btn btn-outline-light">Register</a>
+        </div>
+    </div>
+</div>
+
+{% endif %} 
+
+{% endblock content %}

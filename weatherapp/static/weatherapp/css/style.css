@@ -1,0 +1,300 @@
+/* ==========================================
+   🌍 GENEL AYARLAR (Global)
+   ========================================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /* Navbar fixed olduğu için üstten boşluğu sadece buradan veriyoruz */
+    padding-top: 80px; 
+    /* Daha modern, hafif bir koyu mavi-gri degrade arka plan */
+    background: linear-gradient(135deg, #2b3035 0%, #343a40 100%);
+    min-height: 100vh;
+}
+
+/* ==========================================
+   📝 BAŞLIKLAR VE TYPOGRAPHY (Refactored)
+   ========================================== */
+/* Artık h1, h2'ye doğrudan stil vermek yerine bu sınıfı kullanacağız. 
+   Böylece sadece istediğimiz başlıklar bu görünüme kavuşacak. */
+.custom-heading {
+    background-color: #129791;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 25px;
+    display: inline-block; /* Sadece yazının uzunluğu kadar kutu çizer */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.help-text, .form-text {
+    color: #ced4da;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ==========================================
+   ⛅ HAVA DURUMU KARTLARI (Modern Hover Effects)
+   ========================================== */
+.custom-card {
+    /* Hafif saydamlık ve blur ile Glassmorphism (Camsı) etki */
+    background-color: rgba(73, 80, 87, 0.85); 
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    
+    /* Kartın üzerine gelince animasyonla hareket etmesi için transition eklendi */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Karta fare ile gelindiğinde hafifçe yukarı kalkar ve gölgesi büyür */
+.custom-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ==========================================
+   🎯 NAVBAR & LOGO STYLES
+   ========================================== */
+.navbar-logo {
+    height: 40px;
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.nav-profile-pic {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.nav-profile-pic:hover {
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   🖱️ KAYDIRMA ÇUBUĞU (Scrollbar)
+   ========================================== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(33, 37, 41, 0.75); 
+}
+::-webkit-scrollbar-thumb {
+    background-color: #129791; /* Temayla uyumlu scrollbar rengi */
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0d6e6a;
+}
+
+/* ==========================================
+   🔐 AUTH SAYFALARI İÇİN TAM GENİŞLİKTE BAŞLIK
+   ========================================== */
+.custom-heading-full {
+    background-color: #129791;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 12px 20px;
+    display: block; /* Satırı tamamen kaplamasını sağlar */
+    width: 100%;    /* Form kutusunun genişliğine eşitler */
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ==========================================
+   💻 AKILLI NAVBAR (SADECE FARE KULLANAN DAR EKRANLAR) - V2
+   ========================================== */
+@media (max-width: 991.98px) and (hover: hover) and (pointer: fine) { 
+    
+    /* Navbar'ın sayfa akışını aşağı itmesini engelliyoruz */
+    .navbar-collapse {
+        display: block !important;
+        height: 0 !important;
+        padding: 0 !important;
+        overflow: visible;
+    }
+
+    /* Açılır menülerin ortak özellikleri (Havada yüzen kartlar) */
+    .navbar-nav {
+        display: none;
+        position: absolute;
+        top: 100%; /* Navbar'ın tam bittiği yerden, altından başlar */
+        background-color: #343a40; /* bg-dark ile aynı Koyu tema rengi */
+        padding: 10px;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Şık bir 3D gölge */
+        min-width: 180px;
+        z-index: 1050; /* Tüm sayfanın üstünde kalmasını sağlar */
+    }
+
+    /* 🌉 GÖRÜNMEZ KÖPRÜ (HOVER GAP FIX) */
+    /* Fare logodan/menüden aradaki boşluğa kaydığında menünün kapanmasını engeller */
+    .navbar-nav::before {
+        content: "";
+        position: absolute;
+        top: -25px; /* Yukarıya doğru 25px'lik görünmez bir uzantı atar */
+        left: 0;
+        width: 100%;
+        height: 25px;
+        background-color: transparent; /* Tamamen şeffaf */
+    }
+
+    /* ⬅️ SOL MENÜ (GitHub vb.) - Sola yasla */
+    .navbar-nav.me-auto {
+        left: 10px;
+        text-align: left;
+        min-width: 130px !important; /* Sağ taraf (Login) ile tam simetri */
+    }
+    /* Sol menü içindeki linklerin yazısını tam sola daya */
+    .navbar-nav.me-auto .nav-item {
+        width: 100%;
+    }
+    .navbar-nav.me-auto .nav-link {
+        text-align: left !important; /* Metni kesin olarak sola yaslar */
+        display: block;
+    }
+
+    /* ➡️ SAĞ MENÜ (Login, Register) - Sağa yasla */
+    .navbar-nav.ms-auto {
+        right: 10px;
+        text-align: right;
+        min-width: 130px !important;
+    }
+    /* Sağ menü içindeki linklerin yazısını tam sağa daya */
+    .navbar-nav.ms-auto .nav-item {
+        width: 100%; /* Elemanların kutuyu tam kaplamasını sağlar */
+    }
+    .navbar-nav.ms-auto .nav-link {
+        text-align: right !important; /* Metni kesin olarak sağa yaslar */
+        display: block;
+    }
+
+    /* HEDEFLEME 1: Logo üzerine VEYA Sol Menü üzerine gelince */
+    .navbar:has(.navbar-brand:hover) .navbar-nav.me-auto,
+    .navbar-nav.me-auto:hover {
+        display: flex;
+        flex-direction: column;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+
+    /* HEDEFLEME 2: Hamburger ikonuna VEYA Sağ Menü üzerine gelince */
+    .navbar:has(.navbar-toggler:hover) .navbar-nav.ms-auto,
+    .navbar-nav.ms-auto:hover {
+        display: flex;
+        flex-direction: column;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+
+    /* --- LİNK HOVER EFEKTLERİ --- */
+    .navbar-nav .nav-link {
+        padding: 8px 15px;
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+    }
+
+    /* Sol menü link hover (Sola vurgu çizgisi, sağa yumuşak kayış) */
+    .navbar-nav.me-auto .nav-link:hover {
+        background-color: rgba(18, 151, 145, 0.15);
+        border-left: 3px solid #129791;
+        padding-left: 20px;
+        color: #129791 !important;
+    }
+
+    /* Sağ menü link hover (Sağa vurgu çizgisi, sola yumuşak kayış) */
+    .navbar-nav.ms-auto .nav-link:hover {
+        background-color: rgba(18, 151, 145, 0.15);
+        border-right: 3px solid #129791;
+        padding-right: 20px;
+        color: #129791 !important;
+    }
+}
+
+/* Yukarıdan aşağıya süzülerek açılış animasyonu */
+@keyframes fadeInDown {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+
+/* ==========================================
+   👤 KULLANICI PROFİLİ DROPDOWN (HOVER EFEKTİ)
+   ========================================== */
+/* Geniş ekranlarda üzerine gelince süzülerek açılsın */
+@media (min-width: 992px) {
+    .custom-user-dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+}
+
+/* 💻 Masaüstünde tarayıcı küçültüldüğünde (hover aktifken) iç menüyü de hover ile aç */
+@media (max-width: 991.98px) and (hover: hover) and (pointer: fine) {
+    .custom-user-dropdown:hover .dropdown-menu {
+        display: block !important;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+}
+
+/* 📱 Gerçek Dokunmatik Mobilde Tıklayınca Bootstrap Akışına Zarifçe Otursun */
+@media (max-width: 991.98px) {
+    .custom-user-dropdown .dropdown-menu.show {
+        display: block;
+        position: static; /* Mobil menü içinde aşağı doğru genişlesin */
+        float: none;
+        background-color: rgba(0, 0, 0, 0.2); /* Mobil menü içinde hafif kırık arka plan */
+        margin-top: 5px;
+    }
+    
+    .custom-user-dropdown .dropdown-item {
+        text-align: center; /* Mobilde yazılar ortalansın, parmakla basması kolay olsun */
+    }
+}
+
+/* Kapanmayı önleyen görünmez köprü */
+.custom-user-dropdown .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: transparent;
+}
+
+/* Dropdown Genel Kutu Tasarımı */
+.custom-user-dropdown .dropdown-menu {
+    background-color: #343a40;
+    border-radius: 10px;
+    padding: 10px 0;
+    min-width: 130px;
+}
+
+.custom-user-dropdown .dropdown-item {
+    color: #ffffff;
+    padding: 8px 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.custom-user-dropdown .dropdown-item:hover {
+    background-color: rgba(18, 151, 145, 0.2);
+    color: #129791 !important;
+    padding-left: 25px;
+}
