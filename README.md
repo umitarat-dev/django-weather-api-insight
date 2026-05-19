@@ -73,7 +73,7 @@ The application is fully optimized, secured, and deployed in a production-ready 
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/umitarat-dev/django-weather-api-insight.git](https://github.com/umitarat-dev/django-weather-api-insight.git)
+git clone https://github.com/umitarat-dev/django-weather-api-insight.git
 cd django-weather-api-insight
 ```
 
