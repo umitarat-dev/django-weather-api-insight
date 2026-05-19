@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/Database-SQLite3-003B57?style=flat&logo=sqlite&logoColor=white" />
 </p>
 
-<h1 align="center">☁️ Django Weather API Insight</h1>
+<h1 align="center">🌦️ Django Weather API Insight</h1>
 
 <p align="center"><strong>A professional, responsive full-stack weather tracking workspace built with Django 5.1 and Bootstrap 5. Features real-time climate data via OpenWeather API, a custom email-based authentication architecture, and isolated user dashboards. 🚀</strong></p>
 
