@@ -1,7 +1,8 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Backend-Django%205.1.2-092E20?style=flat&logo=django&logoColor=white" />
-  <img src="https://img.shields.io/badge/Frontend-Bootstrap%205.3.3-7952B3?style=flat&logo=bootstrap&logoColor=white" />
+  <img src="https://img.shields.io/badge/Engine-Django%20Templates-092E20?style=flat&logo=django&logoColor=white"/>
+        <img src="https://img.shields.io/badge/UI-Bootstrap%205.3.3-7952B3?style=flat&logo=bootstrap&logoColor=white"/>
   <img src="https://img.shields.io/badge/API-OpenWeatherMap-EB6E4B?style=flat&logo=openweathermap&logoColor=white" />
   <img src="https://img.shields.io/badge/Forms-Crispy%20Forms-0769AD?style=flat&logo=django&logoColor=white" />
   <img src="https://img.shields.io/badge/Database-SQLite3-003B57?style=flat&logo=sqlite&logoColor=white" />
